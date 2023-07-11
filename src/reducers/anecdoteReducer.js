@@ -19,10 +19,17 @@ const asObject = (anecdote) => {
 
 const initialState = anecdotesAtStart.map(asObject)
 
-const voteForAnecdote = (id) => {
+export const voteForAnecdote = (id) => {
   return {
     type: "VOTE",
     payload: { id }
+  }
+}
+
+export const addNewAnecdote = (textConent) => {
+  return {
+    type: "CREATE",
+    payload: { textConent }
   }
 }
 
@@ -39,10 +46,11 @@ export const reducer = (state = initialState, action) => {
       }
       return state.map(a => a.id === action.payload.id ? changed : a)
     }
+    case "CREATE": {
+      return state.concat({ content: action.payload.textConent, id: getId(), votes: 0 })
+    }
     default: {
       return state
     }
   }
 }
-
-export default voteForAnecdote
