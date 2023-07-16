@@ -1,9 +1,42 @@
 import { useSelector, useDispatch } from 'react-redux'
+import { useEffect } from 'react'
 import anecdoteSlice from '.././reducers/anecdoteReducer'
 import notificationSlice from '../reducers/notificationReducer'
+import { getAllAnecdotes } from '../services/anecdotesService'
 
 const AnecdoteList = () => {
   const dispatch = useDispatch()
+  // useEffect(async () => {
+  //   const items = await getAllAnecdotes()
+  //   dispatch(anecdoteSlice.actions.setAnecdotes(items))
+  // }, [dispatch])
+
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const data = await getAllAnecdotes();
+  //     return data
+  //   }
+  //   const data = fetchData().then(data =>
+  //     dispatch(anecdoteSlice.actions.setAnecdotes(data)));
+  // }, [dispatch])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getAllAnecdotes();
+      dispatch(anecdoteSlice.actions.setAnecdotes(data));
+      return data
+    }
+    fetchData();
+  }, [dispatch])
+
+  // useEffect(() => {
+  //   getAllAnecdotes().then(data => {
+  //     console.log("Calling setAnecdotes")
+  //     dispatch(anecdoteSlice.actions.setAnecdotes(data))
+  //   })
+  // }, [dispatch])
+
   const anecdotes = useSelector(state => {
     console.log(state)
     if (state.filter === '') {
@@ -23,7 +56,7 @@ const AnecdoteList = () => {
     )
     setTimeout(() => {
       dispatch(notificationSlice.actions.setMessage(''))
-    }, 2000)
+    }, 5000)
   }
 
   return (
