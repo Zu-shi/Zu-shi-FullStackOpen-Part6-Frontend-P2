@@ -1,3 +1,5 @@
+import { createSlice } from '@reduxjs/toolkit'
+
 const anecdotesAtStart = [
   'If it hurts, do it more often',
   'Adding manpower to a late software project makes it later!',
@@ -19,38 +21,58 @@ const asObject = (anecdote) => {
 
 const initialState = anecdotesAtStart.map(asObject)
 
-export const voteForAnecdote = (id) => {
-  return {
-    type: "VOTE",
-    payload: { id }
-  }
-}
-
-export const addNewAnecdote = (textConent) => {
-  return {
-    type: "CREATE",
-    payload: { textConent }
-  }
-}
-
-export const anecdoteReducer = (state = initialState, action) => {
-  console.log('state now: ', state)
-  console.log('action', action)
-
-  switch (action.type) {
-    case "VOTE": {
-      const aToChange = state.find(n => n.id === action.payload.id)
+const anecdoteSlice = createSlice({
+  name: 'anecdotes',
+  initialState,
+  reducers: {
+    voteForAnecdote(state, action) {
+      const aToChange = state.find(n => n.id === action.payload)
       const changed = {
         ...aToChange,
         votes: aToChange.votes + 1
       }
-      return state.map(a => a.id === action.payload.id ? changed : a)
-    }
-    case "CREATE": {
-      return state.concat({ content: action.payload.textConent, id: getId(), votes: 0 })
-    }
-    default: {
-      return state
+      return state.map(a => a.id === action.payload ? changed : a)
+    },
+    addNewAnecdote(state, action) {
+      return state.concat({ content: action.payload, id: getId(), votes: 0 })
     }
   }
-}
+})
+
+// export const voteForAnecdote = (id) => {
+//   return {
+//     type: "VOTE",
+//     payload: { id }
+//   }
+// }
+
+// export const addNewAnecdote = (textConent) => {
+//   return {
+//     type: "CREATE",
+//     payload: { textConent }
+//   }
+// }
+
+// export const anecdoteReducer = (state = initialState, action) => {
+//   console.log('state now: ', state)
+//   console.log('action', action)
+
+//   switch (action.type) {
+//     case "VOTE": {
+//       const aToChange = state.find(n => n.id === action.payload.id)
+//       const changed = {
+//         ...aToChange,
+//         votes: aToChange.votes + 1
+//       }
+//       return state.map(a => a.id === action.payload.id ? changed : a)
+//     }
+//     case "CREATE": {
+//       return state.concat({ content: action.payload.textConent, id: getId(), votes: 0 })
+//     }
+//     default: {
+//       return state
+//     }
+//   }
+// }
+
+export default anecdoteSlice

@@ -1,7 +1,19 @@
 import { useSelector, useDispatch } from 'react-redux'
+import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = ""
 
+const filterSlice = createSlice({
+  name: 'filter',
+  initialState,
+  reducers: {
+    setFilter(state, action) {
+      return action.payload
+    }
+  }
+})
+
+/*
 export const setFilter = (filter) => {
   console.log("Input in SetFilter: ", filter)
   return {
@@ -24,3 +36,6 @@ export const filterReducer = (state = initialState, action) => {
     }
   }
 }
+*/
+
+export default filterSlice
