@@ -53,9 +53,16 @@ export const initializeAnecdoteThunk = () => {
   }
 }
 
-export const addAnecdoteThunk = () => {
-  return async (dispatch, content) => {
+export const addAnecdoteThunk = (content) => {
+  return async (dispatch) => {
     const data = await addAnecdote(content)
     dispatch(anecdoteSlice.actions.addNewAnecdote(data.content))
   }
 }
+
+// export const voteForA = () => {
+//   return async (dispatch, content) => {
+//     const data = await addAnecdote(content)
+//     dispatch(anecdoteSlice.actions.addNewAnecdote(data.content))
+//   }
+// }

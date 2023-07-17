@@ -47,6 +47,23 @@ export const addAnecdote = async function (content) {
   }
 }
 
+export const voteForAnecdote = async function (content, id, votes) {
+  try {
+    const response = await axios.put(defaultUrl, {
+      content: content,
+      id: getId(),
+      votes: 0
+    })
+    console.log(response)
+    const items = response.data
+    console.log("items")
+    console.log(items)
+    return items
+  } catch (error) {
+    console.error('Error getting anecdotes:', error)
+  }
+}
+
 // export const getAllAnecdotes = async function () {
 //   const response = await axios.get(defaultUrl)
 //   console.log(response)

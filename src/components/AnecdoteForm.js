@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux'
-import { anecdoteSlice } from '.././reducers/anecdoteReducer'
 import notificationSlice from '../reducers/notificationReducer'
+import { addAnecdoteThunk } from '.././reducers/anecdoteReducer'
 
 const AnecdoteForm = () => {
   const dispatch = useDispatch()
@@ -10,7 +10,7 @@ const AnecdoteForm = () => {
 
     e.preventDefault()
     console.log('addNewAnecdote', e.target.content.value)
-    dispatch(anecdoteSlice.actions.addNewAnecdote(e.target.content.value))
+    dispatch(addAnecdoteThunk(e.target.content.value))
 
     dispatch(notificationSlice.actions
       .setMessage('You added anecdote \'' + e.target.content.value + '\'')
