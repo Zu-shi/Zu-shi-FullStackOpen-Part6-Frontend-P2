@@ -1,8 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
-import anecdoteSlice from '.././reducers/anecdoteReducer'
+import { anecdoteSlice } from '.././reducers/anecdoteReducer'
+import { initializeAnecdote } from '.././reducers/anecdoteReducer'
 import notificationSlice from '../reducers/notificationReducer'
-import { getAllAnecdotes } from '../services/anecdotesService'
 
 const AnecdoteList = () => {
   const dispatch = useDispatch()
@@ -22,12 +22,7 @@ const AnecdoteList = () => {
   // }, [dispatch])
 
   useEffect(() => {
-    const fetchData = async () => {
-      const data = await getAllAnecdotes();
-      dispatch(anecdoteSlice.actions.setAnecdotes(data));
-      return data
-    }
-    fetchData();
+    dispatch(initializeAnecdote());
   }, [dispatch])
 
   // useEffect(() => {

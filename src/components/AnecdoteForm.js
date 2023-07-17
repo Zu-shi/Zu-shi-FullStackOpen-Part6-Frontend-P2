@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux'
-import anecdoteSlice from '.././reducers/anecdoteReducer'
+import { anecdoteSlice } from '.././reducers/anecdoteReducer'
 import notificationSlice from '../reducers/notificationReducer'
 import { addAnecdote } from '../services/anecdotesService'
 
