@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { anecdoteSlice } from '.././reducers/anecdoteReducer'
-import { initializeAnecdote } from '.././reducers/anecdoteReducer'
+import { initializeAnecdoteThunk } from '.././reducers/anecdoteReducer'
 import notificationSlice from '../reducers/notificationReducer'
 
 const AnecdoteList = () => {
@@ -22,7 +22,7 @@ const AnecdoteList = () => {
   // }, [dispatch])
 
   useEffect(() => {
-    dispatch(initializeAnecdote());
+    dispatch(initializeAnecdoteThunk());
   }, [dispatch])
 
   // useEffect(() => {
