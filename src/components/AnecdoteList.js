@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { anecdoteSlice } from '.././reducers/anecdoteReducer'
 import { initializeAnecdoteThunk } from '.././reducers/anecdoteReducer'
 import { voteForAnecdoteThunk } from '.././reducers/anecdoteReducer'
-import notificationSlice from '../reducers/notificationReducer'
+import notificationSlice, { setNotificationThunk } from '../reducers/notificationReducer'
 
 const AnecdoteList = () => {
   const dispatch = useDispatch()
@@ -47,12 +47,7 @@ const AnecdoteList = () => {
     console.log(anecdote)
     dispatch(voteForAnecdoteThunk(anecdote))
     console.log(anecdotes.filter(a => (a.id === anecdote.id))[0])
-    dispatch(notificationSlice.actions
-      .setMessage('You voted for \'' + anecdotes.filter(a => (a.id === anecdote.id))[0].content + '\'')
-    )
-    setTimeout(() => {
-      dispatch(notificationSlice.actions.setMessage(''))
-    }, 5000)
+    dispatch(setNotificationThunk('You voted for \'' + anecdotes.filter(a => (a.id === anecdote.id))[0].content + '\'', 5))
   }
 
   return (

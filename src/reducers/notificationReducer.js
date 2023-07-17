@@ -13,5 +13,13 @@ const notificationSlice = createSlice({
   }
 })
 
+export const setNotificationThunk = (message, time) => {
+  return (dispatch) => {
+    dispatch(notificationSlice.actions.setMessage(message))
+    setTimeout(() => {
+      dispatch(notificationSlice.actions.setMessage(''))
+    }, time * 1000)
+  }
+}
 export default notificationSlice
 
