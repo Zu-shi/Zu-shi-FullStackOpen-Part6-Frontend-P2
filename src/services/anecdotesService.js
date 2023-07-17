@@ -49,11 +49,17 @@ export const addAnecdote = async function (content) {
 
 export const voteForAnecdote = async function (content, id, votes) {
   try {
-    const response = await axios.put(defaultUrl, {
+    const item =
+    {
       content: content,
-      id: getId(),
-      votes: 0
-    })
+      id: id,
+      votes: votes + 1
+    }
+
+    console.log("item-initial")
+    console.log(item)
+    const response = await axios.put(defaultUrl + '/' + id, item)
+    console.log("response")
     console.log(response)
     const items = response.data
     console.log("items")

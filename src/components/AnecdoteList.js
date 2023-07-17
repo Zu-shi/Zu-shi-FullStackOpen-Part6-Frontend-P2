@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { anecdoteSlice } from '.././reducers/anecdoteReducer'
 import { initializeAnecdoteThunk } from '.././reducers/anecdoteReducer'
+import { voteForAnecdoteThunk } from '.././reducers/anecdoteReducer'
 import notificationSlice from '../reducers/notificationReducer'
 
 const AnecdoteList = () => {
@@ -42,12 +43,12 @@ const AnecdoteList = () => {
     }
   })
 
-  const vote = (id) => {
-    console.log('vote', id)
-    dispatch(anecdoteSlice.actions.voteForAnecdote(id))
-    console.log(anecdotes.filter(a => (a.id === id))[0])
+  const vote = (anecdote) => {
+    console.log(anecdote)
+    dispatch(voteForAnecdoteThunk(anecdote))
+    console.log(anecdotes.filter(a => (a.id === anecdote.id))[0])
     dispatch(notificationSlice.actions
-      .setMessage('You voted for \'' + anecdotes.filter(a => (a.id === id))[0].content + '\'')
+      .setMessage('You voted for \'' + anecdotes.filter(a => (a.id === anecdote.id))[0].content + '\'')
     )
     setTimeout(() => {
       dispatch(notificationSlice.actions.setMessage(''))
@@ -64,7 +65,7 @@ const AnecdoteList = () => {
             </div>
             <div>
               has {anecdote.votes}
-              <button onClick={() => vote(anecdote.id)}>vote</button>
+              <button onClick={() => vote(anecdote)}>vote</button>
             </div>
           </div>
         )
